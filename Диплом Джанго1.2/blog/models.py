@@ -1,3 +1,4 @@
+import publication
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
@@ -21,19 +22,25 @@ class Homework(models.Model):
     zagolovok = models.CharField( max_length=200,verbose_name= 'заголовок',)
     Text = models.TextField(verbose_name='Текст',)
     Data_sozdania = models.DateTimeField( default=timezone.now,verbose_name='Дата создания',)
-    vypolneno = models.BooleanField('Отметка о выполнении', default=False)
+    vypolneno = models.BooleanField('Отметка о проверке', default=False)
     avtor= models.ForeignKey(User, on_delete=models.CASCADE)
+    publication = models.BooleanField('Опубликовано', default=False)
+
+
 
 class Partnerorganizations(models.Model):
     nameorganization = models.TextField(verbose_name='Наименование организации',)
     functionorganization = models.TextField(max_length=50, verbose_name='Функции организации в проекте')
-
+    vypolneno = models.BooleanField('Отметка о проверке', default=False)
+    avtor = models.ForeignKey(User, on_delete=models.CASCADE)
+    publication = models.BooleanField('Опубликовано', default=False)
 
 class Project_implementation_plan(models.Model):
      zadacha = models.TextField(max_length=150, verbose_name='Задача',)
      srokirealizatchii = models.TextField( max_length=50, verbose_name='СрокиРеализации',)
-     otmentaovypolnenii = models.BooleanField('Отметка о выполнении', default=False)
-
+     otmentaovypolnenii = models.BooleanField('Отметка о проверке', default=False)
+     avtor = models.ForeignKey(User, on_delete=models.CASCADE)
+     publication = models.BooleanField('Опубликовано', default=False)
 
 
 class Publiczna_presentation(models.Model):
@@ -42,7 +49,9 @@ class Publiczna_presentation(models.Model):
     form = models.TextField(max_length=50, verbose_name='Форма',)
     place = models.TextField(max_length=50, verbose_name='Место',)
     level = models.TextField(max_length=50, verbose_name='Уровень')
-
+    vypolneno = models.BooleanField('Отметка о проверке', default=False)
+    avtor = models.ForeignKey(User, on_delete=models.CASCADE)
+    publication = models.BooleanField('Опубликовано', default=False)
 
 
 class Prognoz_razvitia_nex_year(models.Model):
@@ -50,11 +59,20 @@ class Prognoz_razvitia_nex_year(models.Model):
    nameProduct = models.TextField(max_length=50, verbose_name='Наименование продукта',)
    kratkoeopisanie = models.TextField(max_length=150, verbose_name='Краткое описание продукта',)
    sokirealizachii = models.TextField(max_length=50, verbose_name='Сроки реализации')
+   vypolneno = models.BooleanField('Отметка о проверке', default=False)
+   avtor = models.ForeignKey(User, on_delete=models.CASCADE)
+   publication = models.BooleanField('Опубликовано', default=False)
+
+
+
+
 
 class Product_of_innovation(models.Model):
     productofinnovation = models.TextField(max_length=50, verbose_name='Продукт инновационной деятельности',)
     suggestionsforusingtheresultsobtainedintheregionaleducationsystem=models.TextField( max_length=50, verbose_name='Предложения по использованию результатов проекта полученных  в региональной системе образования')
-
+    vypolneno = models.BooleanField('Отметка о проверке', default=False)
+    avtor = models.ForeignKey(User, on_delete=models.CASCADE)
+    publication = models.BooleanField('Опубликовано', default=False)
 
 
     def russkoenazvanie(self):
